@@ -1,25 +1,35 @@
 describe('sumPaymentTotal', function() {
-    it('should sum the total tip amount', function() {
-      // Arrange
-      // You should set up some test data in the 'allPayments' object
+    let allPayments;
   
-      // Act
+    beforeEach(function () {
+      allPayments = {
+        payment1: { billAmt: 30, tipAmt: 5 },
+        payment2: { billAmt: 40, tipAmt: 7 },
+        payment3: { billAmt: 25, tipAmt: 4 },
+      };
+    });
+  
+    it('should sum the total tip amount for multiple payments', function () {
       const result = sumPaymentTotal('tipAmt');
-  
-      // Assert
-      expect(result).toBe(/* expected sum of tipAmt values */);
+      expect(result).toBe(16);
     });
   
-    it('should sum the total bill amount', function() {
-      // Arrange
-      // Set up test data in the 'allPayments' object
-  
-      // Act
+    it('should sum the total bill amount for multiple payments', function () {
       const result = sumPaymentTotal('billAmt');
-  
-      // Assert
-      expect(result).toBe(/* expected sum of billAmt values */);
+      expect(result).toBe(95); 
     });
   
-    // Add more test cases as needed
+    it('should handle an empty allPayments object', function () {
+      allPayments = {}; 
+      const result = sumPaymentTotal('tipAmt');
+      expect(result).toBe(0);
+    });
+  
+    it('should handle undefined or missing type', function () {
+      const resultUndefined = sumPaymentTotal(undefined);
+      expect(resultUndefined).toBe(0);
+  
+      const resultMissing = sumPaymentTotal('missingType');
+      expect(resultMissing).toBe(0);
+    });
   });
